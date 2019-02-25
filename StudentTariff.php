@@ -1,12 +1,13 @@
 <?php
 class StudentTariff extends AbstractTariff
 {
-    protected $priceForKm = 4;
-    protected $priceForMin = 1;
+    const PRICE_FOR_KM_RUB = 4;
+    const PRICE_FOR_MIN_RUB = 1;
 
     public function totalPrice()
     {
-        $result = ($this->priceForKm * $this->kmAmount + $this->priceForMin * $this->hourAmount * 60) * $this->koeff + $this->dop;
-        echo "Сумма вашей поездки = $result руб.";
+        $minutesAmount =  $this->hourAmount * NUMBER_OF_MINUTES_IN_HOUR;
+        $result = (self::PRICE_FOR_KM_RUB * $this->kmAmount + self::PRICE_FOR_MIN_RUB * $minutesAmount) * $this->koeff + $this->dop;
+        return $result;
     }
 }

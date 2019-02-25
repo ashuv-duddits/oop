@@ -1,12 +1,16 @@
 <?php
 class DayTariff extends AbstractTariff
 {
-    protected $priceForKm = 1;
-    protected $priceForMin = 1000/(24*60);
+    const PRICE_FOR_KM_RUB = 1;
+    const PRICE_FOR_DAY_RUB = 1000;
 
     public function totalPrice()
     {
-        $result = ($this->priceForKm * $this->kmAmount + $this->priceForMin * ceil(round($this->hourAmount)/24) * 24 * 60) * $this->koeff + $this->dop;
-        echo "Сумма вашей поездки = $result руб.";
+        $priceForMin = self::PRICE_FOR_DAY_RUB / (NUMBER_OF_MINUTES_IN_HOUR * NUMBER_OF_HOURS_IN_DAY);
+        $hourRound = round($this->hourAmount);
+        $dayRound = ceil($hourRound / NUMBER_OF_HOURS_IN_DAY);
+        $minutesAmount =  $dayRound * (NUMBER_OF_HOURS_IN_DAY * NUMBER_OF_MINUTES_IN_HOUR);
+        $result = ($this->priceForKm * $this->kmAmount + $priceForMin * $minutesAmount) * $this->koeff + $this->dop;
+        return $result;
     }
 }

@@ -1,12 +1,15 @@
 <?php
 class HourTariff extends AbstractTariff
 {
-    protected $priceForKm = 0;
-    protected $priceForMin = 200/60;
+    const PRICE_FOR_KM_RUB = 0;
+    const PRICE_FOR_HOUR_RUB = 200;
 
     public function totalPrice()
     {
-        $result = ($this->priceForKm * $this->kmAmount + $this->priceForMin * ceil($this->hourAmount) * 60) * $this->koeff + $this->dop;
-        echo "Сумма вашей поездки = $result руб.";
+        $priceForMin = self::PRICE_FOR_HOUR_RUB / NUMBER_OF_MINUTES_IN_HOUR;
+        $hourRound = ceil($this->hourAmount);
+        $minutesAmount =  $hourRound * NUMBER_OF_MINUTES_IN_HOUR;
+        $result = (self::PRICE_FOR_KM_RUB * $this->kmAmount + $priceForMin * $minutesAmount) * $this->koeff + $this->dop;
+        return $result;
     }
 }
