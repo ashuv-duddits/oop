@@ -3,6 +3,6 @@ trait GPS
 {
     public function dopGPS($hour)
     {
-        return 15 * $hour;
+        return self::GPS_PRICE_PER_HOUR_RUB * $hour;
     }
 }

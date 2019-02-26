@@ -6,10 +6,11 @@ class HourTariff extends AbstractTariff
 
     public function totalPrice()
     {
+        $dop = parent::totalPrice();
         $priceForMin = self::PRICE_FOR_HOUR_RUB / NUMBER_OF_MINUTES_IN_HOUR;
         $hourRound = ceil($this->hourAmount);
         $minutesAmount =  $hourRound * NUMBER_OF_MINUTES_IN_HOUR;
-        $result = (self::PRICE_FOR_KM_RUB * $this->kmAmount + $priceForMin * $minutesAmount) * $this->koeff + $this->dop;
+        $result = (self::PRICE_FOR_KM_RUB * $this->kmAmount + $priceForMin * $minutesAmount) * $this->koeff + $dop;
         return $result;
     }
 }

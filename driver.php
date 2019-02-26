@@ -3,6 +3,6 @@ trait driver
 {
     public function dopDriver()
     {
-        return 100;
+        return self::DRIVER_PRICE;
     }
 }
